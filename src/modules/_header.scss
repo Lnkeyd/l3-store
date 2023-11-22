@@ -13,6 +13,10 @@
 
   &__buttons {
     margin-left: auto;
+
+    > .favourites.fav-hidden {
+      visibility: hidden !important;
+    }
   }
 
   a {

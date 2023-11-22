@@ -97,6 +97,10 @@ img {
   }
 }
 
+.btnFav.in-favourites > svg > use {
+  stroke: #ff0000 !important;
+}
+
 .btn {
   text-decoration: none;
   padding: 0.55em 0.8em;

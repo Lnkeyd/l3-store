@@ -4,6 +4,7 @@ import { formatPrice } from '../../utils/helpers';
 import { ProductData } from 'types';
 import html from './productDetail.tpl.html';
 import { cartService } from '../../services/cart.service';
+import { favouritesService } from '../../services/favourites.service';
 
 class ProductDetail extends Component {
   more: ProductList;
@@ -32,10 +33,15 @@ class ProductDetail extends Component {
     this.view.description.innerText = description;
     this.view.price.innerText = formatPrice(salePriceU);
     this.view.btnBuy.onclick = this._addToCart.bind(this);
+    this.view.btnFav.onclick = this._toggleFavourites.bind(this)
 
     const isInCart = await cartService.isInCart(this.product);
+    const isInFavourites = await favouritesService.isInFavourites(this.product)
+    
+    // TODO: isInFav
 
     if (isInCart) this._setInCart();
+    if (isInFavourites) this._setInFavourites();
 
     fetch(`/api/getProductSecretKey?id=${id}`)
       .then((res) => res.json())
@@ -60,6 +66,20 @@ class ProductDetail extends Component {
   private _setInCart() {
     this.view.btnBuy.innerText = '✓ В корзине';
     this.view.btnBuy.disabled = true;
+  }
+
+  private _setInFavourites() {
+    this.view.btnFav.classList.add('in-favourites')
+  }
+
+  // TODO: Проверка если уже в избранном, то сердечко закрашиваем
+
+  // TODO: Сделано добавление в избранное
+  private _toggleFavourites() {
+    if (!this.product) return;
+
+    favouritesService.toggleFavourites(this.product);
+    this.view.btnFav.classList.toggle('in-favourites')
   }
 }
 
