@@ -4,6 +4,7 @@ import { formatPrice } from '../../utils/helpers';
 import { ProductData } from 'types';
 import html from './productDetail.tpl.html';
 import { cartService } from '../../services/cart.service';
+import { analyticsService } from '../../services/analytics.service';
 
 class ProductDetail extends Component {
   more: ProductList;
@@ -54,6 +55,8 @@ class ProductDetail extends Component {
     if (!this.product) return;
 
     cartService.addProduct(this.product);
+    console.log(this.product);
+    analyticsService.dispatchAddToCard('addToCard', { ...this.product });
     this._setInCart();
   }
 
