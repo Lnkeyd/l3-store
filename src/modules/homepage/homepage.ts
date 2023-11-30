@@ -3,15 +3,21 @@ import { Component } from '../component';
 import html from './homepage.tpl.html';
 
 import { ProductList } from '../productList/productList';
+import { SearchSuggestions } from '../searchSuggestions/searchSuggestions';
 
 class Homepage extends Component {
   popularProducts: ProductList;
+  searchSuggestions: SearchSuggestions;
 
   constructor(props: any) {
     super(props);
 
     this.popularProducts = new ProductList();
+    this.searchSuggestions = new SearchSuggestions()
+    console.log(this.view)
+
     this.popularProducts.attach(this.view.popular);
+    this.searchSuggestions.attach(this.view.searchSuggestions)
   }
 
   render() {
@@ -20,6 +26,8 @@ class Homepage extends Component {
       .then((products) => {
         this.popularProducts.update(products);
       });
+
+    this.searchSuggestions.render()
 
     const isSuccessOrder = new URLSearchParams(window.location.search).get('isSuccessOrder');
     if (isSuccessOrder != null) {
