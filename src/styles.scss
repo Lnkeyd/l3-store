@@ -94,11 +94,12 @@ img {
     width: 32px;
     height: 32px;
     margin-top: 4px;
-  }
-}
 
-.btnFav.in-favourites > svg > use {
-  stroke: #ff0000 !important;
+    &.in-favourites {
+      --key-color: #ff0000;
+    }
+  }
+
 }
 
 .btn {

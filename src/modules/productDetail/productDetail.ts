@@ -38,7 +38,6 @@ class ProductDetail extends Component {
     const isInCart = await cartService.isInCart(this.product);
     const isInFavourites = await favouritesService.isInFavourites(this.product)
     
-    // TODO: isInFav
 
     if (isInCart) this._setInCart();
     if (isInFavourites) this._setInFavourites();
@@ -78,8 +77,9 @@ class ProductDetail extends Component {
   private _toggleFavourites() {
     if (!this.product) return;
 
+    console.log(this.view)
     favouritesService.toggleFavourites(this.product);
-    this.view.btnFav.classList.toggle('in-favourites')
+    this.view.svgIcon.classList.toggle('in-favourites')
   }
 }
 
