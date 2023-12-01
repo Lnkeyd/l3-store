@@ -57,9 +57,3 @@ export type ProductData = {
   src: string;
   description: string;
 };
-
-declare global {
-  interface Window {
-    userId: string; // extended Window type
-  }
-}
