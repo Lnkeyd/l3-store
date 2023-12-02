@@ -27,34 +27,41 @@ export class ProductList {
   render() {
     this.view.root.innerHTML = '';
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // 2.	Просмотр товара в списке товаров (попадание карточек во вьюпорт)
+          if (entry.isIntersecting) {
+            // Достаём id товара из атрибута href HTML-элемента (a)
+            const id = entry.target.getAttribute('href')?.replace(/[^0-9]/g, '');
+
+            Promise.all([
+              // Достаём product по id
+              fetch(`/api/getProduct?id=${id}`).then((res) => res.json()),
+              // Достаём secretKey товара
+              fetch(`/api/getProductSecretKey?id=${id}`).then((res) => res.json())
+            ]).then((data) =>
+              // data[0] - product, data[1] - secretKey
+              analyticsService.dispatchViewCard(
+                // Если в свойствах товара есть не пустое поле log, то тип должен быть viewCardPromo.
+                Object.keys(data[0].log).length > 0 ? 'viewCardPromo' : 'viewCard',
+                {
+                  // payload: всеСвойстваТовара + secretKey товара
+                  ...data[0],
+                  secretKey: data[1]
+                }
+              )
+            );
+          }
+        });
+      },
+      { threshold: 1 }
+    );
+
     this.products.forEach((product) => {
       const productComp = new Product(product);
       productComp.render();
       productComp.attach(this.view.root);
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            // 2.	Просмотр товара в списке товаров (попадание карточек во вьюпорт)
-            if (entry.isIntersecting) {
-              
-              // Достаём secretKey товара
-              fetch(`/api/getProductSecretKey?id=${productComp.product.id}`)
-              .then((res) => res.json())
-              .then((secretKey) => {
-                // Если в свойствах товара есть не пустое поле log, то тип должен быть viewCardPromo.
-                analyticsService.dispatchViewCard(Object.keys(productComp.product.log).length > 0 ? 'viewCardPromo' : 'viewCard', {
-                  // payload: всеСвойстваТовара + secretKey товара
-                  ...productComp.product,
-                  secretKey 
-                });
-              });
-
-            }
-          });
-        },
-        { threshold: 1 }
-      );
 
       observer.observe(productComp.view.root);
     });
