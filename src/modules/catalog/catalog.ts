@@ -14,16 +14,12 @@ class Catalog extends Component {
     this.productList.attach(this.view.products);
   }
 
-  async render() {
-    const userId = await userService.getId()
-    
-    const productsResp = await fetch('/api/getProducts', {
+  render() {
+   fetch('/api/getProducts', {
       headers: {
-        'x-userid': userId
+        'x-userid': userService.userId
       }
-    });
-    const products = await productsResp.json();
-    this.productList.update(products);
+    }).then(response => response.json()).then(products => this.productList.update(products))
   }
 }
 

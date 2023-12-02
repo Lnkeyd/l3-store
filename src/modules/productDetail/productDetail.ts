@@ -44,14 +44,11 @@ class ProductDetail extends Component {
         this.view.secretKey.setAttribute('content', secretKey);
       });
 
-    const userId = await userService.getId() 
-
     fetch('/api/getPopularProducts', {
-
       headers: {
-        'x-userid': userId
+        'x-userid': userService.userId
       }
-      })
+    })
       .then((res) => res.json())
       .then((products) => {
         this.more.update(products);
