@@ -16,10 +16,10 @@ class Homepage extends Component {
   }
 
   render() {
-    
+
     fetch('/api/getPopularProducts', {
       headers: {
-        'x-userid': userService.userId || ''
+        'x-userid': userService.userId!
       }
     })
       .then((res) => res.json())

@@ -15,11 +15,13 @@ class Catalog extends Component {
   }
 
   render() {
-   fetch('/api/getProducts', {
+    fetch('/api/getProducts', {
       headers: {
-        'x-userid': userService.userId || ''
+        'x-userid': userService.userId!
       }
-    }).then(response => response.json()).then(products => this.productList.update(products))
+    })
+      .then((response) => response.json())
+      .then((products) => this.productList.update(products));
   }
 }
 

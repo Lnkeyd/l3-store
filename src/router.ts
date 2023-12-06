@@ -17,17 +17,17 @@ export default class Router {
   constructor() {
     // @ts-ignore
     this.$appRoot = document.querySelector('.js__root');
-
+    
     window.addEventListener('load', this.route.bind(this));
     window.addEventListener('hashchange', this.route.bind(this));
+
+    this.route()
   }
 
-  route(e: any) {
-    e.preventDefault();
-
+  route() {
     // @ts-ignore
     const component = ROUTES[window.location.pathname] || notFoundComp;
-
+    
     component.attach(this.$appRoot);
     component.render();
   }
