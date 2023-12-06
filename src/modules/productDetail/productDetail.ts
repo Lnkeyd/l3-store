@@ -10,6 +10,7 @@ class ProductDetail extends Component {
   more: ProductList;
   product?: ProductData;
 
+
   constructor(props: any) {
     super(props);
 
@@ -46,7 +47,7 @@ class ProductDetail extends Component {
 
     fetch('/api/getPopularProducts', {
       headers: {
-        'x-userid': userService.userId
+        'x-userid': userService?.userId || ''
       }
     })
       .then((res) => res.json())

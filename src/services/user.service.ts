@@ -4,11 +4,7 @@ import { genUUID } from '../utils/helpers';
 const ID_DB = '__wb-userId';
 
 class UserService {
-  userId: string;
-
-  constructor() {
-    this.userId = '';
-  }
+  userId?: string;
 
   async init() {
     this.userId = await this.getId();
