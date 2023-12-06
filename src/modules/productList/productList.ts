@@ -32,25 +32,18 @@ export class ProductList {
         entries.forEach((entry) => {
           // 2.	Просмотр товара в списке товаров (попадание карточек во вьюпорт)
           if (entry.isIntersecting) {
-            // Достаём id товара из атрибута href HTML-элемента (a)
-            const id = entry.target.getAttribute('href')?.replace(/[^0-9]/g, '');
 
-            Promise.all([
-              // Достаём product по id
-              fetch(`/api/getProduct?id=${id}`).then((res) => res.json()),
-              // Достаём secretKey товара
-              fetch(`/api/getProductSecretKey?id=${id}`).then((res) => res.json())
-            ]).then((data) =>
-              // data[0] - product, data[1] - secretKey
-              analyticsService.dispatchViewCard(
-                // Если в свойствах товара есть не пустое поле log, то тип должен быть viewCardPromo.
-                Object.keys(data[0].log).length > 0 ? 'viewCardPromo' : 'viewCard',
-                {
-                  // payload: всеСвойстваТовара + secretKey товара
-                  ...data[0],
-                  secretKey: data[1]
-                }
-              )
+            const id = entry.target.getAttribute('data-id')
+            const product = this.products.find(product => Number(id) === product.id)
+
+            product && analyticsService.dispatchViewCard(
+              // Если в свойствах товара есть не пустое поле log, то тип должен быть viewCardPromo.
+              Object.keys(product.log).length > 0 ? 'viewCardPromo' : 'viewCard',
+              {
+                // payload: всеСвойстваТовара + secretKey товара
+                ...product,
+                secretKey: ''
+              }
             );
           }
         });
