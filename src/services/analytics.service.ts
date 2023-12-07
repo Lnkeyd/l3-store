@@ -20,7 +20,7 @@ class AnalyticsService {
     await this._post({ type, payload });
   }
 
-  async dispatchViewCard(type: 'viewCard' | 'viewCardPromo', payload: ProductData & { secretKey: string }) {
+  async dispatchViewCard(type: 'viewCard' | 'viewCardPromo', payload: ProductData) {
     await this._post({ type, payload });
   }
 

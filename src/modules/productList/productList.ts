@@ -32,19 +32,15 @@ export class ProductList {
         entries.forEach((entry) => {
           // 2.	Просмотр товара в списке товаров (попадание карточек во вьюпорт)
           if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('data-id');
+            const product = this.products.find((product) => Number(id) === product.id);
 
-            const id = entry.target.getAttribute('data-id')
-            const product = this.products.find(product => Number(id) === product.id)
-
-            product && analyticsService.dispatchViewCard(
-              // Если в свойствах товара есть не пустое поле log, то тип должен быть viewCardPromo.
-              Object.keys(product.log).length > 0 ? 'viewCardPromo' : 'viewCard',
-              {
-                // payload: всеСвойстваТовара + secretKey товара
-                ...product,
-                secretKey: ''
-              }
-            );
+            product &&
+              analyticsService.dispatchViewCard(
+                // Если в свойствах товара есть не пустое поле log, то тип должен быть viewCardPromo.
+                Object.keys(product.log).length > 0 ? 'viewCardPromo' : 'viewCard',
+                product
+              );
           }
         });
       },
