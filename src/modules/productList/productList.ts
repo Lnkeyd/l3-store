@@ -24,7 +24,7 @@ export class ProductList {
     this.render();
   }
 
-  render() {
+  async render() {
     this.view.root.innerHTML = '';
 
     const observer = new IntersectionObserver(
