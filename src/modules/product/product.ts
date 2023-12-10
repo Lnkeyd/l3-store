@@ -29,7 +29,7 @@ export class Product {
     this.view.title.innerText = name;
     this.view.price.innerText = formatPrice(salePriceU);
     
-    this.view.root.dataset.id = String(id);
+    this.view.root.dataset.product = JSON.stringify(this.product);
 
     if (this.params.isHorizontal) this.view.root.classList.add('is__horizontal');
   }

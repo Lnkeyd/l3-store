@@ -32,8 +32,8 @@ export class ProductList {
         entries.forEach((entry) => {
           // 2.	Просмотр товара в списке товаров (попадание карточек во вьюпорт)
           if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('data-id');
-            const product = this.products.find((product) => Number(id) === product.id);
+            const productAttr = entry.target.getAttribute('data-product');
+            const product = productAttr && JSON.parse(productAttr)
 
             product &&
               analyticsService.dispatchViewCard(
