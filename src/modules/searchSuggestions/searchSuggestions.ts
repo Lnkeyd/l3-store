@@ -23,10 +23,12 @@ export class SearchSuggestions {
   }
 
   render() {
+    this.view.root.innerHTML = 'Например, '
 
     this.suggestions.forEach((suggestion) => {
 
-      const $suggestion = addElement(this.view.root, 'span', { className: 'suggestion'});
+      const $suggestion = addElement(this.view.root, 'a', { className: 'suggestion'});
+      $suggestion.setAttribute('href', '#')
       addElement($suggestion, 'span', {className: 'suggestion__text', innerText: suggestion})
 
       // если элемент не последний (нам не нужна запятая в конце предложения)

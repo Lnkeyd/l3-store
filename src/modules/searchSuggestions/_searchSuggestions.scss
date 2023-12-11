@@ -6,13 +6,13 @@
   font-style: normal;
   font-weight: 550;
   line-height: 24px; /* 109.091% */
-
 }
 
 .suggestion {
   border-radius: 8px;
   background-color: var(--system-smoky, #f6f6fa);
   padding: 4px 6px 8px 6px;
+  text-decoration: none;
 
   &__text {
     background: linear-gradient(93deg, #da15b8 4.93%, #8d06cc 100%);
