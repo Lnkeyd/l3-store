@@ -1,7 +1,7 @@
 import { ViewTemplate } from '../../utils/viewTemplate';
 import { View } from '../../utils/view';
 import html from './searchSuggestions.tpl.html';
-import { Suggestion } from '../suggestion/suggestion';
+import { addElement } from '../../utils/helpers';
 
 export class SearchSuggestions {
   view: View;
@@ -23,13 +23,11 @@ export class SearchSuggestions {
   }
 
   render() {
-    this.view.root.innerHTML = 'Например, ';
 
     this.suggestions.forEach((suggestion) => {
-      const suggestionComp = new Suggestion(suggestion);
 
-      suggestionComp.attach(this.view.root);
-      suggestionComp.render();
+      const $suggestion = addElement(this.view.root, 'span', { className: 'suggestion'});
+      addElement($suggestion, 'span', {className: 'suggestion__text', innerText: suggestion})
 
       // если элемент не последний (нам не нужна запятая в конце предложения)
       //   Например, чехол iphone 13 pro, коляски agex или яндекс станция 2,
