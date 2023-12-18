@@ -27,8 +27,7 @@ export class SearchSuggestions {
 
     this.suggestions.forEach((suggestion) => {
 
-      const $suggestion = addElement(this.view.root, 'a', { className: 'suggestion'});
-      $suggestion.setAttribute('href', '#')
+      const $suggestion = addElement(this.view.root, 'a', { className: 'suggestion', href: '#'});
       addElement($suggestion, 'span', {className: 'suggestion__text', innerText: suggestion})
 
       // если элемент не последний (нам не нужна запятая в конце предложения)
