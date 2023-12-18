@@ -68,16 +68,13 @@ class ProductDetail extends Component {
   }
 
   private _setInFavourites() {
-    this.view.btnFav.classList.add('in-favourites')
+    this.view.svgIcon.classList.add('in-favourites')
   }
 
-  // TODO: Проверка если уже в избранном, то сердечко закрашиваем
-
-  // TODO: Сделано добавление в избранное
+  // Проверка если уже в избранном, то сердечко закрашиваем
   private _toggleFavourites() {
     if (!this.product) return;
 
-    console.log(this.view)
     favouritesService.toggleFavourites(this.product);
     this.view.svgIcon.classList.toggle('in-favourites')
   }

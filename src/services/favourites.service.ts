@@ -49,7 +49,6 @@ class FavouritesService {
     } else {
         await this.addProduct(product)
     }
-    console.log(await localforage.getItem(FAV_DB))
   }
 
   private _removeHeaderLink() {
