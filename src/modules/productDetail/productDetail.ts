@@ -55,7 +55,7 @@ class ProductDetail extends Component {
     if (!this.product) return;
 
     cartService.addProduct(this.product);
-    console.log(this.product);
+
     analyticsService.dispatchAddToCard('addToCard', { ...this.product });
     this._setInCart();
   }
