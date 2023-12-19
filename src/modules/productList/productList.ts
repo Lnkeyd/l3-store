@@ -28,8 +28,8 @@ export class ProductList {
 
     this.products.forEach((product) => {
       const productComp = new Product(product);
-      productComp.render();
       productComp.attach(this.view.root);
+      productComp.render();
     });
   }
 }
